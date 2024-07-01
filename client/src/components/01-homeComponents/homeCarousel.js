@@ -1,6 +1,7 @@
 // src/components/HomeSlider.js
 import React from 'react';
 import Slider from 'react-slick';
+// import { baseUrl } from "./config";
 
 function HomeSlider() {
     const settings = {

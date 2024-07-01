@@ -10,6 +10,7 @@ const AdminLoginPage= () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   const handleSubmit = async (e) => {
@@ -21,7 +22,24 @@ const AdminLoginPage= () => {
         password
       });
 
+      if(response.status === 200){
+        const res = response.data;
+                dispatch(assignUserRole(res.userRole));
+                dispatch(
+                    setLoginDetails({
+                        isLoggedIn: true,
+                        userDbId: res?.id,
+                        userDept: res?.department,
+                        email: res?.email,
+                        name: res?.name,
+                        token: res?.token
+                      })
+                    );
+                    
+      }
+
       console.log('Login successful!', response.data);
+      navigate('/');
     } catch (error) {
       console.error('Login error:', error);
     }
